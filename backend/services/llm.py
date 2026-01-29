@@ -1,22 +1,35 @@
 import json
+import re
 from transformers import pipeline
 from backend.config import USE_SAGEMAKER
 
+
 generator = pipeline(
-    "text-generation",
-    #model="mistralai/Mistral-7B-Instruct-v0.2",    #large size approx 14gigs
-    model="google/flan-t5-small",    
-    max_new_tokens=256
+    "text2text-generation",   # FIXED for T5
+    model="google/flan-t5-base",
+    max_new_tokens=128
+    # temperature=0.2,
+    # do_sample=False
 )
 
+
+def extract_json(text: str):
+    """
+    Safely extract first JSON object from model output
+    """
+    match = re.search(r"\{.*\}", text, re.DOTALL)
+    if match:
+        return json.loads(match.group())
+    raise ValueError("No JSON found")
+
+
 def call_local_llm(prompt: str):
-    output = generator(prompt)[0]["generated_text"]
+    output = generator(prompt)[0]["generated_text"].replace(prompt, "")
 
     try:
-        json_part = output.split("{",1)[1]
-        json_part = "{" + json_part
-        return json.loads(json_part)
-    except:
+        return extract_json(output)
+
+    except Exception:
         return {
             "score": 0,
             "missing_skills": [],
@@ -24,10 +37,9 @@ def call_local_llm(prompt: str):
             "rewritten_bullets": []
         }
 
+
 def call_llm(prompt):
     if USE_SAGEMAKER:
-        #upgrade later using sagemaker
-        #call_sagemaker_llm(prompt)
         pass
     else:
         return call_local_llm(prompt)

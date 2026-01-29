@@ -1,5 +1,5 @@
 PROMPT_TEMPLATE = """
-You are an expert recruiter.
+You are an expert recruiter. also an ATS evaluator
 
 Resume:
 {resume}
@@ -13,7 +13,7 @@ Tasks:
 3. Suggest improvements
 4. Rewrite 3 bullets better to match job description
 
-Return STRICT JSON:
+Return ONLY valid JSON exactly in this format:
 
 {{
  "score": int,
