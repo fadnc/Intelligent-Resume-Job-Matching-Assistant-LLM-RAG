@@ -1,24 +1,8 @@
-PROMPT_TEMPLATE = """
-You are an expert recruiter. also an ATS evaluator
+# backend/models/prompts.py
+PROMPT_TEMPLATE = """Score this resume for the job (0-100). List 2-3 missing skills and suggestions. Return JSON only.
 
-Resume:
-{resume}
+Resume: {resume}
 
-Job Description:
-{jd}
+Job: {jd}
 
-Tasks:
-1. Give match score out of 100
-2. List missing skills
-3. Suggest improvements
-4. Rewrite 3 bullets better to match job description
-
-Return ONLY valid JSON exactly in this format:
-
-{{
- "score": int,
- "missing_skills": [],
- "suggestions": [],
- "rewritten_bullets": []
-}}
-"""
+JSON: {{"score": 0, "missing_skills": [], "suggestions": [], "rewritten_bullets": []}}"""
