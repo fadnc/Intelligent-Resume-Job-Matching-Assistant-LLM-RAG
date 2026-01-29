@@ -1,11 +1,12 @@
 import json
 from transformers import pipeline
-from config import USE_SAGEMAKER
+from backend.config import USE_SAGEMAKER
 
 generator = pipeline(
     "text-generation",
-    model="mistralai/Mistral-7B-Instruct-v0.2",
-    max_new_tokens=500
+    #model="mistralai/Mistral-7B-Instruct-v0.2",    #large size approx 14gigs
+    model="google/flan-t5-small",    
+    max_new_tokens=256
 )
 
 def call_local_llm(prompt: str):
