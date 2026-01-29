@@ -9,4 +9,4 @@ streamlit
 boto3
 python-dotenv
 pymupdf
-fitz
+groq
