@@ -16,15 +16,15 @@ async def analyze_resume(resume_file, job_text):
     
     #s3 embed & index
     vectors = embed_texts(chunks)
-    create_index(vectors, chunks)
+    cache_key = create_index(vectors, chunks, resume_text)
     
     #s4 retrieve relev chunks
-    query_vec = embed_texts([job_text])
-    top_chunks = search(query_vec)
+    query_vec = embed_texts([job_text])[0]
+    top_chunks = search(query_vec, cache_key)
     
     context = "\n".join(top_chunks)
     
-    #s5 llm prompting
+    #s5 llm prompt
     prompt = PROMPT_TEMPLATE.format(
         resume=context,
         jd=job_text
