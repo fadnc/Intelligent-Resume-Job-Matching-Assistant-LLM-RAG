@@ -3,7 +3,7 @@ from backend.services.chunker import chunk_text
 from backend.services.embeddings import embed_texts
 from backend.services.retriever import create_index, search
 from backend.services.llm import call_llm
-from models.prompts import PROMPT_TEMPLATE
+from backend.models.prompts import PROMPT_TEMPLATE
 
 async def analyze_resume(resume_file, job_text):
     file_bytes = await resume_file.read()
