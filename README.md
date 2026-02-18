@@ -2,6 +2,10 @@
 
 A production-ready AI-powered system that analyzes resumes against job descriptions using Retrieval Augmented Generation (RAG), vector embeddings, and large language models. The application provides quantitative match scoring, skills gap analysis, and actionable recommendations to optimize resumes for Applicant Tracking Systems (ATS).
 
+![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 ## Table of Contents
 
 - [Features](#features)
